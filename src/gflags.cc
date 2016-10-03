@@ -1004,6 +1004,7 @@ static string ReadFileIntoString(const char* filename) {
   char buffer[kBufSize];
   string s;
   FILE* fp = fopen(filename, "r");
+  if (!fp && errno == ENOENT) return "";
   if (!fp)  PFATAL(filename);
   size_t n;
   while ( (n=fread(buffer, 1, kBufSize, fp)) > 0 ) {
